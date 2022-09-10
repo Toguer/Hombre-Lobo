@@ -10,6 +10,7 @@ public class playerManager : NetworkBehaviour
     [SerializeField] private GameObject BackGroundParent;
     [SerializeField] private Image rolImage;
     [SerializeField] private Rol actualRol;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +29,16 @@ public class playerManager : NetworkBehaviour
         {
             Debug.Log(e);
         } 
+    }
 
+    private void joinGame()
+    {
+        GameSetup.gameInstance.addPlayer(this);
+    }
 
+    private void OnEnable()
+    {
+        GameSetup.onGameStart += joinGame;
     }
 
 }

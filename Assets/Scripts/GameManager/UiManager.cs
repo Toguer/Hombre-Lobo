@@ -8,6 +8,7 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI stateText;
     [SerializeField] private GameObject playButton;
+    [SerializeField] private GameObject FindMatchButton;
 
     void Start()
     {
@@ -23,7 +24,8 @@ public class UiManager : MonoBehaviour
 
     private void MatchFound()
     {
-        playButton.SetActive(false);
+        playButton.SetActive(true);
+        FindMatchButton.SetActive(false);
     }
 
     private void OnDestroy()

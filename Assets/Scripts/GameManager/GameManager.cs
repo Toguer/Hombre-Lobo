@@ -32,9 +32,11 @@ public class GameManager : MonoBehaviour
     //Notificar partida encontrada
     public UnityAction MatchFound;
 
+
+
     private void Awake()
     {
-        if(_instance is null)
+        if (_instance is null)
         {
             _instance = this;
 
@@ -73,7 +75,8 @@ public class GameManager : MonoBehaviour
 
     void SetupEvents()
     {
-        AuthenticationService.Instance.SignedIn += () => {
+        AuthenticationService.Instance.SignedIn += () =>
+        {
             // Shows how to get a playerID
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
 
@@ -81,11 +84,13 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Access Token: {AuthenticationService.Instance.AccessToken}");
         };
 
-        AuthenticationService.Instance.SignInFailed += (err) => {
+        AuthenticationService.Instance.SignInFailed += (err) =>
+        {
             Debug.LogError(err);
         };
 
-        AuthenticationService.Instance.SignedOut += () => {
+        AuthenticationService.Instance.SignedOut += () =>
+        {
             Debug.Log("Player signed out.");
         };
     }
@@ -160,7 +165,7 @@ public class GameManager : MonoBehaviour
             UpdateState?.Invoke("Partida encontrada!");
             MatchFound?.Invoke();
         }
-        catch(LobbyServiceException e)
+        catch (LobbyServiceException e)
         {
             //Si no encontramos partida creamos una.
             Debug.Log("No pudiste encontrar partida: " + e);
@@ -172,7 +177,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Creando una nueva partida...");
         UpdateState?.Invoke("Creando partida...");
-         
+
         int maxConnections = 1;
         try
         {
@@ -207,7 +212,7 @@ public class GameManager : MonoBehaviour
             };
 
             var lobby = await Lobbies.Instance.CreateLobbyAsync(lobbyName, maxPLayers, options);
-            
+
             _lobbyId = lobby.Id;
             Debug.Log("Lobby creada: " + lobby.Id);
             // Para no cerrar el server
@@ -226,7 +231,7 @@ public class GameManager : MonoBehaviour
 
             UpdateState?.Invoke("Esperando Jugadores...");
         }
-        catch(LobbyServiceException e)
+        catch (LobbyServiceException e)
         {
             Console.WriteLine(e);
             throw;
@@ -265,7 +270,7 @@ public class GameManager : MonoBehaviour
     /// RelayHostData representa la informacion necesaria
     /// para un host para hostear con Relay
     /// </Resumen>
-    
+
     public struct RelayJoinData
     {
         public string JoinCode;
